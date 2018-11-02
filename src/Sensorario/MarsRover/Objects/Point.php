@@ -19,7 +19,7 @@ final class Point
         return new self($x, $y);
     }
 
-    public static function center()
+    public static function origin()
     {
         return new self(0, 0);
     }

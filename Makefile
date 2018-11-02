@@ -1,2 +1,2 @@
 default:
-	./bin/phpunit --testdox
+	./bin/phpunit --testdox --color

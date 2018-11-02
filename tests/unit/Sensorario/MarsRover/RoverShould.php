@@ -11,7 +11,7 @@ class RoverShould extends TestCase
     public function setUp()
     {
         $this->rover = new Rover(
-            Point::center()
+            Point::origin()
         );
     }
 
