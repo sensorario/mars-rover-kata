@@ -1,0 +1,113 @@
+<?php
+
+namespace Sensorario\MarsRover;
+
+use PHPUnit\Framework\TestCase;
+use Sensorario\MarsRover\Objects\Point;
+use Sensorario\MarsRover\Rover;
+
+class RoverShould extends TestCase
+{
+    public function setUp()
+    {
+        $this->rover = new Rover(
+            Point::center()
+        );
+    }
+
+    public function testStartFromCenterOfTheWorld()
+    {
+        $this->assertEquals([0, 0], $this->rover->position());
+    }
+
+    public function testPointToNorthByDefault()
+    {
+        $this->assertEquals('N', $this->rover->direction());
+    }
+
+    public function testBeVerticallyOrienterdByDefault()
+    {
+        $this->assertEquals('vertical', $this->rover->orientation());
+    }
+
+    public function testMoveForward()
+    {
+        $this->rover->moveForward();
+        $this->assertEquals([0, 1], $this->rover->position());
+    }
+
+    public function testMoveForwardAfterTurnAndVertical()
+    {
+        $this->rover->turnRight();
+        $this->rover->turnRight();
+        $this->rover->moveForward();
+        $this->assertEquals([0, -1], $this->rover->position());
+    }
+
+    public function testMoveBackward()
+    {
+        $this->rover->moveBackword();
+        $this->assertEquals([0, -1], $this->rover->position());
+    }
+
+    public function testMoveBackwardAfterTurn()
+    {
+        $this->rover->turnRight();
+        $this->rover->turnRight();
+        $this->rover->moveBackword();
+        $this->assertEquals([0, 1], $this->rover->position());
+    }
+
+    public function testChangeDirectionAfterTurnRight()
+    {
+        $this->assertEquals('N', $this->rover->direction());
+
+        $this->rover->turnRight();
+        $this->assertEquals('E', $this->rover->direction());
+
+        $this->rover->turnRight();
+        $this->assertEquals('S', $this->rover->direction());
+
+        $this->rover->turnRight();
+        $this->assertEquals('O', $this->rover->direction());
+
+        $this->rover->turnRight();
+        $this->assertEquals('N', $this->rover->direction());
+
+        $this->rover->turnRight();
+        $this->assertEquals('E', $this->rover->direction());
+    }
+
+    public function testChangeDirectionAfterTurnLeft()
+    {
+        $this->assertEquals('N', $this->rover->direction());
+
+        $this->rover->turnLeft();
+        $this->assertEquals('O', $this->rover->direction());
+
+        $this->rover->turnLeft();
+        $this->assertEquals('S', $this->rover->direction());
+
+        $this->rover->turnLeft();
+        $this->assertEquals('E', $this->rover->direction());
+
+        $this->rover->turnLeft();
+        $this->assertEquals('N', $this->rover->direction());
+
+        $this->rover->turnLeft();
+        $this->assertEquals('O', $this->rover->direction());
+    }
+
+    public function testChangeOrientationAfterRotation()
+    {
+        $this->rover->turnRight();
+        $this->assertEquals('horizontal', $this->rover->orientation());
+    }
+
+    public function testMoveForwardAfterTurn()
+    {
+        $this->rover->turnRight();
+        $this->rover->moveForward();
+        $this->assertEquals([1, 0], $this->rover->position());
+    }
+}
