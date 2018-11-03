@@ -107,6 +107,11 @@ class Receiver
         return $this->rover->position();
     }
 
+    public function roverDirection()
+    {
+        return $this->rover->direction();
+    }
+
     public function edgeDetected()
     {
         return $this->edgeDetected ?? false;

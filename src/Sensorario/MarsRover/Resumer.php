@@ -17,6 +17,7 @@ class Resumer
             'description' => 'partenza',
             'position' => $this->receiver->roverPosition(),
             'edgeDetected' => $this->receiver->edgeDetected(),
+            'direction' => $this->receiver->roverDirection(),
         ], JSON_PRETTY_PRINT);
     }
 }
