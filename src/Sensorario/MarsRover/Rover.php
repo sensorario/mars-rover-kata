@@ -13,11 +13,14 @@ class Rover
 
     private $currentDirection = 0;
 
+    private $destination;
+
     public function __construct(
         Objects\Point $startingPoint
     )
     {
         $this->position = $startingPoint;
+        $this->destination = $this->position;
     }
 
     public function forcePosition(Objects\Point $point)
@@ -32,7 +35,7 @@ class Rover
 
     public function moveForward() : void
     {
-        $this->move([
+        $this->detectDestination([
             'N' => 'incY',
             'S' => 'decY',
             'O' => 'decX',
@@ -42,7 +45,7 @@ class Rover
 
     public function moveBackword() : void
     {
-        $this->move([
+        $this->detectDestination([
             'N' => 'decY',
             'S' => 'incY',
             'O' => 'incX',
@@ -50,9 +53,10 @@ class Rover
         ]);
     }
 
-    private function move($movements)
+    private function detectDestination($movements)
     {
-        $this->position->{$movements[$this->direction()]}();
+        $this->destination = clone $this->position;
+        $this->destination->{$movements[$this->direction()]}();
     }
 
     public function direction() : string
@@ -92,5 +96,10 @@ class Rover
         return $this->currentDirection % 2
             ? 'horizontal'
             : 'vertical';
+    }
+
+    public function destination() : Objects\Point
+    {
+        return $this->destination;
     }
 }

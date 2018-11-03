@@ -33,7 +33,7 @@ class RoverShould extends TestCase
     public function testMoveForward()
     {
         $this->rover->moveForward();
-        $this->assertEquals([0, 1], $this->rover->position());
+        $this->assertEquals(Point::from(0, 1), $this->rover->destination());
     }
 
     public function testMoveForwardAfterTurnAndVertical()
@@ -41,13 +41,13 @@ class RoverShould extends TestCase
         $this->rover->turnRight();
         $this->rover->turnRight();
         $this->rover->moveForward();
-        $this->assertEquals([0, -1], $this->rover->position());
+        $this->assertEquals(Point::from(0, -1), $this->rover->destination());
     }
 
     public function testMoveBackward()
     {
         $this->rover->moveBackword();
-        $this->assertEquals([0, -1], $this->rover->position());
+        $this->assertEquals(Point::from(0, -1), $this->rover->destination());
     }
 
     public function testMoveBackwardAfterTurn()
@@ -55,7 +55,8 @@ class RoverShould extends TestCase
         $this->rover->turnRight();
         $this->rover->turnRight();
         $this->rover->moveBackword();
-        $this->assertEquals([0, 1], $this->rover->position());
+        $this->assertEquals([0, 0], $this->rover->position());
+        $this->assertEquals(Point::from(0, 1), $this->rover->destination());
     }
 
     public function testChangeDirectionAfterTurnRight()
@@ -101,6 +102,7 @@ class RoverShould extends TestCase
     public function testChangeOrientationAfterRotation()
     {
         $this->rover->turnRight();
+        $this->assertEquals([0, 0], $this->rover->position());
         $this->assertEquals('horizontal', $this->rover->orientation());
     }
 
@@ -108,6 +110,7 @@ class RoverShould extends TestCase
     {
         $this->rover->turnRight();
         $this->rover->moveForward();
-        $this->assertEquals([1, 0], $this->rover->position());
+        $this->assertEquals([0, 0], $this->rover->position());
+        $this->assertEquals(Point::from(1, 0), $this->rover->destination());
     }
 }

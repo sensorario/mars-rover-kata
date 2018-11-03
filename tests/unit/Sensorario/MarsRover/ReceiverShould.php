@@ -17,9 +17,12 @@ class ReceiverShould extends TestCase
             ->getMock();
         $this->rover->expects($this->once())
             ->method($movement);
-        $this->rover->expects($this->any())
+        $this->rover->expects($this->once())
             ->method('position')
             ->willReturn([0,0]);
+        $this->rover->expects($this->once())
+            ->method('destination')
+            ->willReturn(Point::from(0,0));
 
         $this->grid = $this
             ->getMockBuilder('Sensorario\MarsRover\Grid')

@@ -56,15 +56,13 @@ class Receiver
 
         $this->rover->$command();
 
-        $futurePosition = $this->rover->position();
+        $futurePosition = $this->rover->destination();
 
-        $this->edgeDetected = !$this->grid->containsPosition(
-            $futurePosition[0],
-            $futurePosition[1]
-        );
+        $fut = $futurePosition->toArray();
+        $this->edgeDetected = !$this->grid->containsPosition($fut[0], $fut[1]);
 
-        $x = $futurePosition[0];
-        $y = $futurePosition[1];
+        $x = $futurePosition->toArray()[0];
+        $y = $futurePosition->toArray()[1];
 
         if ($this->edgeDetected) {
             $maxX = $this->grid->width() - 1;
@@ -106,10 +104,14 @@ class Receiver
     {
         return $this->rover->position();
     }
-
     public function roverDirection()
     {
         return $this->rover->direction();
+    }
+
+    public function roverDestination() : Objects\Point
+    {
+        return $this->rover->destination();
     }
 
     public function edgeDetected()

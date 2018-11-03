@@ -2,7 +2,7 @@
 
 namespace Sensorario\MarsRover\Objects;
 
-final class Point
+class Point
 {
     private $x;
 

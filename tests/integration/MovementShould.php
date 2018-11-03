@@ -1,5 +1,7 @@
 <?php
 
+use Sensorario\MarsRover\Objects\Point;
+
 class MovementShould extends PHPUnit\Framework\TestCase
 {
     public function testReachValidPosition()
@@ -9,9 +11,10 @@ class MovementShould extends PHPUnit\Framework\TestCase
         $grid = new Sensorario\MarsRover\Grid(3, 3);
         $receiver = new Sensorario\MarsRover\Receiver($rover, $grid);
 
-        $this->assertEquals([0,0], $receiver->roverPosition());
+        $this->assertEquals([0,0], $receiver->roverDestination()->toArray());
         $receiver->read('ff');
 
+        $this->assertEquals([0,2], $receiver->roverDestination()->toArray());
         $this->assertEquals([0,2], $receiver->roverPosition());
         $this->assertSame(false, $receiver->edgeDetected());
     }
@@ -23,10 +26,10 @@ class MovementShould extends PHPUnit\Framework\TestCase
         $grid = new Sensorario\MarsRover\Grid(1, 1);
         $receiver = new Sensorario\MarsRover\Receiver($rover, $grid);
 
-        $this->assertEquals([0,0], $receiver->roverPosition());
+        $this->assertEquals([0,0], $receiver->roverDestination()->toArray());
         $receiver->read('f');
         $this->assertSame(true, $receiver->edgeDetected());
-        $this->assertEquals([0,0], $receiver->roverPosition());
+        $this->assertEquals([0,1], $receiver->roverDestination()->toArray());
     }
 
     public function testWrapNorwthEdge()
@@ -36,12 +39,12 @@ class MovementShould extends PHPUnit\Framework\TestCase
         $grid = new Sensorario\MarsRover\Grid(3, 3);
         $receiver = new Sensorario\MarsRover\Receiver($rover, $grid);
 
-        $this->assertEquals([0,0], $receiver->roverPosition());
+        $this->assertEquals([0,0], $receiver->roverDestination()->toArray());
         $receiver->read('ff');
 
-        $this->assertEquals([0,2], $receiver->roverPosition());
+        $this->assertEquals([0,2], $receiver->roverDestination()->toArray());
         $receiver->read('f');
-        $this->assertEquals([0,0], $receiver->roverPosition());
+        $this->assertEquals([0,3], $receiver->roverDestination()->toArray());
     }
 
     public function testWrapWestEdge()
@@ -51,9 +54,9 @@ class MovementShould extends PHPUnit\Framework\TestCase
         $grid = new Sensorario\MarsRover\Grid(3, 3);
         $receiver = new Sensorario\MarsRover\Receiver($rover, $grid);
 
-        $this->assertEquals([0,0], $receiver->roverPosition());
+        $this->assertEquals([0,0], $receiver->roverDestination()->toArray());
         $receiver->read('lf');
-        $this->assertEquals([2,0], $receiver->roverPosition());
+        $this->assertEquals([-1,0], $receiver->roverDestination()->toArray());
     }
 
     public function testWrapSouthEdge()
@@ -63,9 +66,9 @@ class MovementShould extends PHPUnit\Framework\TestCase
         $grid = new Sensorario\MarsRover\Grid(3, 3);
         $receiver = new Sensorario\MarsRover\Receiver($rover, $grid);
 
-        $this->assertEquals([0,0], $receiver->roverPosition());
+        $this->assertEquals([0,0], $receiver->roverDestination()->toArray());
         $receiver->read('rrf');
-        $this->assertEquals([0,2], $receiver->roverPosition());
+        $this->assertEquals([0,-1], $receiver->roverDestination()->toArray());
     }
 
     public function testWrapEastEdge()
@@ -75,11 +78,11 @@ class MovementShould extends PHPUnit\Framework\TestCase
         $grid = new Sensorario\MarsRover\Grid(3, 3);
         $receiver = new Sensorario\MarsRover\Receiver($rover, $grid);
 
-        $this->assertEquals([0,0], $receiver->roverPosition());
+        $this->assertEquals([0,0], $receiver->roverDestination()->toArray());
         $receiver->read('rff');
-        $this->assertEquals([2,0], $receiver->roverPosition());
+        $this->assertEquals([2,0], $receiver->roverDestination()->toArray());
         $receiver->read('f');
-        $this->assertEquals([0,0], $receiver->roverPosition());
+        $this->assertEquals([3,0], $receiver->roverDestination()->toArray());
         $this->assertEquals(4, $receiver->stepsMade());
     }
 
@@ -91,7 +94,7 @@ class MovementShould extends PHPUnit\Framework\TestCase
 
         $planetFreeFromObstacles = new Sensorario\MarsRover\Receiver($rover, $grid);
         $planetFreeFromObstacles->read('rflfffff');
-        $this->assertEquals([1,2], $planetFreeFromObstacles->roverPosition());
+        $this->assertEquals([1,2], $planetFreeFromObstacles->roverDestination()->toArray());
         $this->assertEquals(8, $planetFreeFromObstacles->stepsMade());
     }
 
@@ -104,7 +107,7 @@ class MovementShould extends PHPUnit\Framework\TestCase
         $planetWithObstacles = new Sensorario\MarsRover\Receiver($rover, $grid);
         $planetWithObstacles->setObstacles([[1,1]]);
         $planetWithObstacles->read('rflfffff');
-        $this->assertEquals([1,0], $planetWithObstacles->roverPosition());
+        $this->assertEquals([1,1], $planetWithObstacles->roverDestination()->toArray());
         $this->assertEquals(3, $planetWithObstacles->stepsMade());
     }
 }
