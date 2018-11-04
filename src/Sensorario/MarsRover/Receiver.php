@@ -20,6 +20,8 @@ class Receiver
 
     private $stepsMade = 0;
 
+    private $fixer;
+
     public function __construct(
         Rover $rover,
         Grid $grid
@@ -34,6 +36,8 @@ class Receiver
 
         $this->rover = $rover;
         $this->grid = $grid;
+
+        $this->fixer = new Fixer($this->grid);
     }
 
     public function setObstacles(array $obstacles) : void
@@ -50,39 +54,19 @@ class Receiver
 
     public function move(string $instruction) : void
     {
-        $command = $this->conversionMap[$instruction];
-
         $currentPosition = $this->rover->position();
 
+        $command = $this->conversionMap[$instruction];
         $this->rover->$command();
-
         $futurePosition = $this->rover->destination();
-
         $fut = $futurePosition->toArray();
-        $this->edgeDetected = !$this->grid->containsPosition($fut[0], $fut[1]);
+        $x = $fut[0];
+        $y = $fut[1];
 
-        $x = $futurePosition->toArray()[0];
-        $y = $futurePosition->toArray()[1];
+        $this->edgeDetected = !$this->grid->containsPosition($x, $y);
 
         if ($this->edgeDetected) {
-            $maxX = $this->grid->width() - 1;
-            $maxY = $this->grid->height() - 1;
-
-            if ($y > $maxY) {
-                $y = 0;
-            }
-
-            if ($y < 0) {
-                $y = $maxY;
-            }
-
-            if ($x > $maxX) {
-                $x = 0;
-            }
-
-            if ($x < 0) {
-                $x = $maxX;
-            }
+            list($x, $y) = $this->fixer->fix($x, $y);
         }
 
         if (in_array([$x, $y], $this->obstacles)) {
