@@ -23,6 +23,8 @@ class Receiver
 
     private $fixer;
 
+    private $predictor;
+
     public function __construct(
         Rover $rover,
         Grid $grid
