@@ -44,7 +44,7 @@ class Receiver
 
     public function read(string $instruction) : void
     {
-        for ($i = 0; $this->obstacleDetected == false && $i < strlen($instruction); $i++) {
+        for ($i = 0; $this->obstacleDetected === false && $i < strlen($instruction); $i++) {
             $this->move($instruction[$i]);
         }
     }
