@@ -1,10 +1,11 @@
 <?php
 
-namespace Sensorario\MarsRover;
+namespace Sensorario\MarsRover\Receiver;
 
 use PHPUnit\Framework\TestCase;
 use Sensorario\MarsRover\Objects\Point;
 use Sensorario\MarsRover\Rover;
+use Sensorario\MarsRover\Grid;
 
 class Receiver
 {
@@ -66,7 +67,7 @@ class Receiver
         }
 
         $this->rover->forcePosition(
-            Objects\Point::from($x, $y)
+            Point::from($x, $y)
         );
     }
 

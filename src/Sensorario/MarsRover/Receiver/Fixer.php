@@ -1,6 +1,8 @@
 <?php
 
-namespace Sensorario\MarsRover;
+namespace Sensorario\MarsRover\Receiver;
+
+use Sensorario\MarsRover\Grid;
 
 class Fixer
 {

@@ -4,7 +4,7 @@ require 'vendor/autoload.php';
 
 $startigPoint = Sensorario\MarsRover\Objects\Point::origin();
 $rover = new Sensorario\MarsRover\Rover($startigPoint);
-$receiver = new Sensorario\MarsRover\Receiver($rover, new Sensorario\MarsRover\Grid(7,7));
+$receiver = new Sensorario\MarsRover\Receiver\Receiver($rover, new Sensorario\MarsRover\Grid(7,7));
 
 (new Sensorario\MarsRover\Resumer($receiver))->println();
 

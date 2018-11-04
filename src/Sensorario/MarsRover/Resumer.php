@@ -7,7 +7,7 @@ class Resumer
 {
     private $receiver;
 
-    public function __construct(Receiver $receiver)
+    public function __construct(Receiver\Receiver $receiver)
     {
         $this->receiver = $receiver;
     }
