@@ -2,6 +2,7 @@
 
 namespace Sensorario\MarsRover;
 
+/** @codeCoverageIgnore */
 class Resumer
 {
     private $receiver;
