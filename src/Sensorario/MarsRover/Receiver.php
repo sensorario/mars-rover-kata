@@ -54,8 +54,6 @@ class Receiver
 
     public function move(string $instruction) : void
     {
-        $currentPosition = $this->rover->position();
-
         $command = $this->conversionMap[$instruction];
         $this->rover->$command();
         $futurePosition = $this->rover->destination();
@@ -67,6 +65,7 @@ class Receiver
             list($x, $y) = $this->fixer->fix($x, $y);
         }
 
+        $currentPosition = $this->rover->position();
         if (in_array([$x, $y], $this->obstacles)) {
             $x = $currentPosition[0];
             $y = $currentPosition[1];
