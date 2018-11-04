@@ -70,18 +70,9 @@ class Receiver
         );
     }
 
-    public function roverPosition()
+    public function rover()
     {
-        return $this->rover->position();
-    }
-    public function roverDirection()
-    {
-        return $this->rover->direction();
-    }
-
-    public function roverDestination() : Objects\Point
-    {
-        return $this->rover->destination();
+        return $this->rover;
     }
 
     public function edgeDetected()
