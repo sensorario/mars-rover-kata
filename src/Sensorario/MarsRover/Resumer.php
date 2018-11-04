@@ -12,10 +12,10 @@ class Resumer
         $this->receiver = $receiver;
     }
 
-    public function println()
+    public function println(string $title)
     {
         echo "\n" . json_encode([
-            'description' => 'partenza',
+            'description' => strtoupper($title),
             'position' => $this->receiver->rover()->position(),
             'edgeDetected' => $this->receiver->edgeDetected(),
             'direction' => $this->receiver->rover()->direction(),
