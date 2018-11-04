@@ -64,7 +64,7 @@ class Receiver
             $this->obstacleDetected = true;
         }
 
-        if ($this->obstacleDetected == false) {
+        if ($this->obstacleDetected === false) {
             $this->stepsMade++;
         }
 
