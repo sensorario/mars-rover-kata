@@ -27,17 +27,11 @@ class Receiver
         Grid $grid
     )
     {
-        $this->conversionMap = [
-            'f' => 'moveForward',
-            'b' => 'moveBackword',
-            'l' => 'turnLeft',
-            'r' => 'turnRight',
-        ];
-
         $this->rover = $rover;
         $this->grid = $grid;
 
         $this->fixer = new Fixer($this->grid);
+        $this->predictor = new Predictor($this->rover);
     }
 
     public function setObstacles(array $obstacles) : void
@@ -54,12 +48,7 @@ class Receiver
 
     public function move(string $instruction) : void
     {
-        $command = $this->conversionMap[$instruction];
-        $this->rover->$command();
-        $futurePosition = $this->rover->destination();
-        $fut = $futurePosition->toArray();
-        $x = $fut[0];
-        $y = $fut[1];
+        list($x, $y) = $this->predictor->forecastPosition($instruction);
 
         if ($this->edgeDetected = !$this->grid->containsPosition($x, $y)) {
             list($x, $y) = $this->fixer->fix($x, $y);
