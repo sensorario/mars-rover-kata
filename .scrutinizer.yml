@@ -5,6 +5,7 @@ build:
     tests:
         override:
             - php-scrutinizer-run
+            - phpcs-run
             -
                 command: './bin/phpunit --coverage-clover=some-file'
                 coverage:
