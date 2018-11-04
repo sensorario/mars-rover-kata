@@ -15,6 +15,8 @@ class Rover
 
     private $destination;
 
+    private $position;
+
     public function __construct(
         Objects\Point $startingPoint
     )
