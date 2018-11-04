@@ -17,7 +17,7 @@ class ReceiverShould extends TestCase
             ->getMock();
         $this->rover->expects($this->once())
             ->method($movement);
-        $this->rover->expects($this->once())
+        $this->rover->expects($this->any())
             ->method('position')
             ->willReturn([0,0]);
         $this->rover->expects($this->once())

@@ -15,9 +15,9 @@ class Resumer
     {
         echo "\n" . json_encode([
             'description' => 'partenza',
-            'position' => $this->receiver->roverPosition(),
+            'position' => $this->receiver->rover()->position(),
             'edgeDetected' => $this->receiver->edgeDetected(),
-            'direction' => $this->receiver->roverDirection(),
+            'direction' => $this->receiver->rover()->direction(),
         ], JSON_PRETTY_PRINT);
     }
 }

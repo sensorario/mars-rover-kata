@@ -54,8 +54,8 @@ class Receiver
             list($x, $y) = $this->fixer->fix($x, $y);
         }
 
-        $currentPosition = $this->rover->position();
         if (in_array([$x, $y], $this->obstacles)) {
+            $currentPosition = $this->rover->position();
             $x = $currentPosition[0];
             $y = $currentPosition[1];
             $this->obstacleDetected = true;
