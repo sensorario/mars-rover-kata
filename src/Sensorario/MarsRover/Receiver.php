@@ -63,9 +63,7 @@ class Receiver
         $x = $fut[0];
         $y = $fut[1];
 
-        $this->edgeDetected = !$this->grid->containsPosition($x, $y);
-
-        if ($this->edgeDetected) {
+        if ($this->edgeDetected = !$this->grid->containsPosition($x, $y)) {
             list($x, $y) = $this->fixer->fix($x, $y);
         }
 
