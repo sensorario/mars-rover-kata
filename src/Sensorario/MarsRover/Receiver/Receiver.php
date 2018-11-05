@@ -58,9 +58,7 @@ class Receiver
         }
 
         if (in_array([$x, $y], $this->obstacles)) {
-            $currentPosition = $this->rover->position();
-            $x = $currentPosition[0];
-            $y = $currentPosition[1];
+            list($x, $y) = $this->rover->position();
             $this->obstacleDetected = true;
         }
 

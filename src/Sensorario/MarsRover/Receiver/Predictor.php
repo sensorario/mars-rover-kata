@@ -25,8 +25,6 @@ class Predictor
         $command = $this->conversionMap[$instruction];
         $this->rover->$command();
         $futurePosition = $this->rover->destination();
-        $fut = $futurePosition->toArray();
-
-        return [$fut[0], $fut[1]];
+        return $futurePosition->toArray();
     }
 }
