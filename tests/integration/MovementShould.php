@@ -4,12 +4,16 @@ use Sensorario\MarsRover\Point;
 
 class MovementShould extends PHPUnit\Framework\TestCase
 {
+    public function setUp()
+    {
+        $this->startigPoint = Sensorario\MarsRover\Point::origin();
+        $this->rover = new Sensorario\MarsRover\Rover($this->startigPoint);
+    }
+
     public function testReachValidPosition()
     {
-        $startigPoint = Sensorario\MarsRover\Point::origin();
-        $rover = new Sensorario\MarsRover\Rover($startigPoint);
         $grid = new Sensorario\MarsRover\Grid(3, 3);
-        $receiver = new Sensorario\MarsRover\Receiver\Receiver($rover, $grid);
+        $receiver = new Sensorario\MarsRover\Receiver\Receiver($this->rover, $grid);
 
         $this->assertEquals([0,0], $receiver->rover()->destination()->toArray());
         $receiver->read('ff');
@@ -21,10 +25,8 @@ class MovementShould extends PHPUnit\Framework\TestCase
 
     public function testDetectGridEdge()
     {
-        $startigPoint = Sensorario\MarsRover\Point::origin();
-        $rover = new Sensorario\MarsRover\Rover($startigPoint);
         $grid = new Sensorario\MarsRover\Grid(1, 1);
-        $receiver = new Sensorario\MarsRover\Receiver\Receiver($rover, $grid);
+        $receiver = new Sensorario\MarsRover\Receiver\Receiver($this->rover, $grid);
 
         $this->assertEquals([0,0], $receiver->rover()->destination()->toArray());
         $receiver->read('f');
@@ -34,10 +36,8 @@ class MovementShould extends PHPUnit\Framework\TestCase
 
     public function testWrapNorwthEdge()
     {
-        $startigPoint = Sensorario\MarsRover\Point::origin();
-        $rover = new Sensorario\MarsRover\Rover($startigPoint);
         $grid = new Sensorario\MarsRover\Grid(3, 3);
-        $receiver = new Sensorario\MarsRover\Receiver\Receiver($rover, $grid);
+        $receiver = new Sensorario\MarsRover\Receiver\Receiver($this->rover, $grid);
 
         $this->assertEquals([0,0], $receiver->rover()->destination()->toArray());
         $receiver->read('ff');
@@ -49,10 +49,8 @@ class MovementShould extends PHPUnit\Framework\TestCase
 
     public function testWrapWestEdge()
     {
-        $startigPoint = Sensorario\MarsRover\Point::origin();
-        $rover = new Sensorario\MarsRover\Rover($startigPoint);
         $grid = new Sensorario\MarsRover\Grid(3, 3);
-        $receiver = new Sensorario\MarsRover\Receiver\Receiver($rover, $grid);
+        $receiver = new Sensorario\MarsRover\Receiver\Receiver($this->rover, $grid);
 
         $this->assertEquals([0,0], $receiver->rover()->destination()->toArray());
         $receiver->read('lf');
@@ -61,10 +59,8 @@ class MovementShould extends PHPUnit\Framework\TestCase
 
     public function testWrapSouthEdge()
     {
-        $startigPoint = Sensorario\MarsRover\Point::origin();
-        $rover = new Sensorario\MarsRover\Rover($startigPoint);
         $grid = new Sensorario\MarsRover\Grid(3, 3);
-        $receiver = new Sensorario\MarsRover\Receiver\Receiver($rover, $grid);
+        $receiver = new Sensorario\MarsRover\Receiver\Receiver($this->rover, $grid);
 
         $this->assertEquals([0,0], $receiver->rover()->destination()->toArray());
         $receiver->read('rrf');
@@ -73,10 +69,8 @@ class MovementShould extends PHPUnit\Framework\TestCase
 
     public function testWrapEastEdge()
     {
-        $startigPoint = Sensorario\MarsRover\Point::origin();
-        $rover = new Sensorario\MarsRover\Rover($startigPoint);
         $grid = new Sensorario\MarsRover\Grid(3, 3);
-        $receiver = new Sensorario\MarsRover\Receiver\Receiver($rover, $grid);
+        $receiver = new Sensorario\MarsRover\Receiver\Receiver($this->rover, $grid);
 
         $this->assertEquals([0,0], $receiver->rover()->destination()->toArray());
         $receiver->read('rff');
@@ -88,11 +82,9 @@ class MovementShould extends PHPUnit\Framework\TestCase
 
     public function testCompleteSequenceWheneverObstaclesAreNotPresent()
     {
-        $startigPoint = Sensorario\MarsRover\Point::origin();
-        $rover = new Sensorario\MarsRover\Rover($startigPoint);
         $grid = new Sensorario\MarsRover\Grid(3, 3);
 
-        $planetFreeFromObstacles = new Sensorario\MarsRover\Receiver\Receiver($rover, $grid);
+        $planetFreeFromObstacles = new Sensorario\MarsRover\Receiver\Receiver($this->rover, $grid);
         $planetFreeFromObstacles->read('rflfffff');
         $this->assertEquals([1,2], $planetFreeFromObstacles->rover()->destination()->toArray());
         $this->assertEquals(8, $planetFreeFromObstacles->stepsMade());
@@ -100,11 +92,9 @@ class MovementShould extends PHPUnit\Framework\TestCase
 
     public function testStopSequenceWheneverObstacleIsPresent()
     {
-        $startigPoint = Sensorario\MarsRover\Point::origin();
-        $rover = new Sensorario\MarsRover\Rover($startigPoint);
         $grid = new Sensorario\MarsRover\Grid(3, 3);
 
-        $planetWithObstacles = new Sensorario\MarsRover\Receiver\Receiver($rover, $grid);
+        $planetWithObstacles = new Sensorario\MarsRover\Receiver\Receiver($this->rover, $grid);
         $planetWithObstacles->setObstacles([[1,1]]);
         $planetWithObstacles->read('rflfffff');
         $this->assertEquals([1,1], $planetWithObstacles->rover()->destination()->toArray());
