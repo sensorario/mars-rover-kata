@@ -18,16 +18,16 @@ class Rover
     private $position;
 
     public function __construct(
-        Objects\Point $startingPoint
+        Point $startingPoint
     )
     {
         $this->position = $startingPoint;
         $this->destination = $this->position;
     }
 
-    public function forcePosition(Objects\Point $point)
+    public function forcePosition(Point $Point)
     {
-        $this->position = $point;
+        $this->position = $Point;
     }
 
     public function position() : array
@@ -100,7 +100,7 @@ class Rover
             : 'vertical';
     }
 
-    public function destination() : Objects\Point
+    public function destination() : Point
     {
         return $this->destination;
     }

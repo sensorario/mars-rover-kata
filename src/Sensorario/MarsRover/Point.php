@@ -1,6 +1,6 @@
 <?php
 
-namespace Sensorario\MarsRover\Objects;
+namespace Sensorario\MarsRover;
 
 class Point
 {
