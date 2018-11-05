@@ -19,6 +19,7 @@ class Resumer
             'position' => $this->receiver->rover()->position(),
             'edgeDetected' => $this->receiver->edgeDetected(),
             'direction' => $this->receiver->rover()->direction(),
+            'steps' => $this->receiver->stepsMade(),
         ], JSON_PRETTY_PRINT);
     }
 }
