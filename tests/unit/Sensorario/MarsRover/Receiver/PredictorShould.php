@@ -9,7 +9,7 @@ use Sensorario\MarsRover\Rover;
 class PredictorShould extends TestCase
 {
     /** @dataProvider forecasts */
-    public function testAskCurrentPositionToRover(
+    public function testDetectNextRoverPosition(
         $from,
         $direction,
         $movement,
