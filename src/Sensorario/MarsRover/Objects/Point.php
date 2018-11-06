@@ -1,6 +1,6 @@
 <?php
 
-namespace Sensorario\MarsRover;
+namespace Sensorario\MarsRover\Objects;
 
 class Point
 {
@@ -30,25 +30,5 @@ class Point
             $this->x,
             $this->y,
         ];
-    }
-
-    public function incY()
-    {
-        $this->y++;
-    }
-
-    public function decY()
-    {
-        $this->y--;
-    }
-
-    public function incX()
-    {
-        $this->x++;
-    }
-
-    public function decX()
-    {
-        $this->x--;
     }
 }

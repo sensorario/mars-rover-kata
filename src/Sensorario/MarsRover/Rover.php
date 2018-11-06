@@ -1,6 +1,8 @@
 <?php
 
-Namespace Sensorario\MarsRover;
+namespace Sensorario\MarsRover;
+
+use Sensorario\MarsRover\Objects\Point;
 
 class Rover
 {

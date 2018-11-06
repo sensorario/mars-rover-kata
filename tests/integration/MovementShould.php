@@ -1,12 +1,12 @@
 <?php
 
-use Sensorario\MarsRover\Point;
+use Sensorario\MarsRover\Objects\Point;
 
 class MovementShould extends PHPUnit\Framework\TestCase
 {
     public function setUp()
     {
-        $this->startigPoint = Sensorario\MarsRover\Point::origin();
+        $this->startigPoint = Point::origin();
         $this->rover = new Sensorario\MarsRover\Rover($this->startigPoint);
         $this->predictor = new Sensorario\MarsRover\Receiver\Predictor();
     }

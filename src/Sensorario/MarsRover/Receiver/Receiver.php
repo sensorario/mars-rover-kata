@@ -3,9 +3,9 @@
 namespace Sensorario\MarsRover\Receiver;
 
 use PHPUnit\Framework\TestCase;
-use Sensorario\MarsRover\Point;
-use Sensorario\MarsRover\Rover;
 use Sensorario\MarsRover\Grid;
+use Sensorario\MarsRover\Objects\Point;
+use Sensorario\MarsRover\Rover;
 
 class Receiver
 {
