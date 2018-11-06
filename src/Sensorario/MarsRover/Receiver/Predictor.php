@@ -26,22 +26,17 @@ class Predictor
         $y = $this->currentPosition[1];
 
         if ($instruction === 'f') {
-            if ($this->currentDirection === 'N') { $y++; }
-            if ($this->currentDirection === 'E') { $x++; }
-            if ($this->currentDirection === 'O') { $x--; }
-            if ($this->currentDirection === 'S') { $y--; }
+            if ($this->currentDirection === 'N') { return [$x, ++$y]; }
+            if ($this->currentDirection === 'E') { return [++$x, $y]; }
+            if ($this->currentDirection === 'O') { return [--$x, $y]; }
+            if ($this->currentDirection === 'S') { return [$x, --$y]; }
         }
 
         if ($instruction === 'b') {
-            if ($this->currentDirection === 'N') { $y--; }
-            if ($this->currentDirection === 'E') { $x--; }
-            if ($this->currentDirection === 'O') { $x++; }
-            if ($this->currentDirection === 'S') { $y++; }
+            if ($this->currentDirection === 'N') { return [$x, --$y]; }
+            if ($this->currentDirection === 'E') { return [--$x, $y]; }
+            if ($this->currentDirection === 'O') { return [++$x, $y]; }
+            if ($this->currentDirection === 'S') { return [$x, ++$y]; }
         }
-
-        return [
-            $x,
-            $y,
-        ];
     }
 }
