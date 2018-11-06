@@ -3,7 +3,7 @@
 ## Install composer
 
 ```bash
-makke composer
+make composer
 ```
 
 ## Run tests
