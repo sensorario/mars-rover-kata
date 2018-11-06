@@ -1,9 +1,21 @@
 # mars-rover-kata
 
+## Install composer
+
+```bash
+makke composer
+```
+
 ## Run tests
 
 ```bash
 make
+```
+
+## Coverage
+
+```bash
+make coverage
 ```
 
 ## Badges
