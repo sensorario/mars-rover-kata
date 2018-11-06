@@ -26,15 +26,17 @@ class Receiver
     private $predictor;
 
     public function __construct(
+        Predictor $predictor,
         Rover $rover,
         Grid $grid
     )
     {
         $this->rover = $rover;
         $this->grid = $grid;
+        $this->predictor = $predictor;
 
         $this->fixer = new Fixer($this->grid);
-        $this->predictor = new Predictor($this->rover);
+        $this->predictor->setRover($this->rover);
     }
 
     public function setObstacles(array $obstacles) : void
@@ -45,13 +47,29 @@ class Receiver
     public function read(string $instruction) : void
     {
         for ($i = 0; $this->obstacleDetected === false && $i < strlen($instruction); $i++) {
-            $this->move($instruction[$i]);
+            if ($instruction[$i] === 'l') {
+                $this->rover->turnLeft();
+            }
+
+            if ($instruction[$i] === 'r') {
+                $this->rover->turnRight();
+            }
+
+            if ($instruction[$i] === 'f' || $instruction[$i] === 'b') {
+                $this->move($instruction[$i]);
+            }
+
+            $this->predictor->setRover($this->rover);
+
+            if ($this->obstacleDetected === false) {
+                $this->stepsMade++;
+            }
         }
     }
 
     public function move(string $instruction) : void
     {
-        list($x, $y) = $this->predictor->forecastPosition($instruction);
+        list($x, $y) = $this->predictor->forecast($instruction);
 
         if ($this->edgeDetected = !$this->grid->containsPosition($x, $y)) {
             list($x, $y) = $this->fixer->fix($x, $y);
@@ -60,10 +78,6 @@ class Receiver
         if (in_array([$x, $y], $this->obstacles)) {
             list($x, $y) = $this->rover->position();
             $this->obstacleDetected = true;
-        }
-
-        if ($this->obstacleDetected === false) {
-            $this->stepsMade++;
         }
 
         $this->rover->forcePosition(

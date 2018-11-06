@@ -15,14 +15,9 @@ class ReceiverShould extends TestCase
             ->getMockBuilder('Sensorario\MarsRover\Rover')
             ->disableOriginalConstructor()
             ->getMock();
-        $this->rover->expects($this->once())
-            ->method($movement);
         $this->rover->expects($this->any())
             ->method('position')
             ->willReturn([0,0]);
-        $this->rover->expects($this->once())
-            ->method('destination')
-            ->willReturn(Point::from(0,0));
 
         $this->grid = $this
             ->getMockBuilder('Sensorario\MarsRover\Grid')
@@ -33,7 +28,20 @@ class ReceiverShould extends TestCase
             ->with(0,0)
             ->willReturn(true);
 
+        $this->predictor = $this
+            ->getMockBuilder('Sensorario\MarsRover\Receiver\Predictor')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->predictor->expects($this->exactly(2))
+            ->method('setRover')
+            ->with($this->rover);
+        $this->predictor->expects($this->once())
+            ->method('forecast')
+            ->with($instruction)
+            ->willReturn([0, 0]);
+
         $translator = new Receiver(
+            $this->predictor,
             $this->rover,
             $this->grid
         );
@@ -46,8 +54,8 @@ class ReceiverShould extends TestCase
         return [
             ['f', 'moveForward'],
             ['b', 'moveBackword'],
-            ['l', 'turnLeft'],
-            ['r', 'turnRight'],
+            //['l', 'turnLeft'],
+            //['r', 'turnRight'],
         ];
     }
 }
