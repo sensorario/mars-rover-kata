@@ -35,32 +35,6 @@ class Rover
         return $this->position->toArray();
     }
 
-    public function moveForward() : void
-    {
-        $this->detectDestination([
-            'N' => 'incY',
-            'S' => 'decY',
-            'O' => 'decX',
-            'E' => 'incX',
-        ]);
-    }
-
-    public function moveBackword() : void
-    {
-        $this->detectDestination([
-            'N' => 'decY',
-            'S' => 'incY',
-            'O' => 'incX',
-            'E' => 'decX',
-        ]);
-    }
-
-    private function detectDestination($movements)
-    {
-        $this->destination = clone $this->position;
-        $this->destination->{$movements[$this->direction()]}();
-    }
-
     public function direction() : string
     {
         return $this->directions[$this->currentDirection];

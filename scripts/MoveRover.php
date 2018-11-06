@@ -2,9 +2,13 @@
 
 require 'vendor/autoload.php';
 
-$startigPoint = Sensorario\MarsRover\Point::origin();
-$rover = new Sensorario\MarsRover\Rover($startigPoint);
-$receiver = new Sensorario\MarsRover\Receiver\Receiver($rover, new Sensorario\MarsRover\Grid(7,7));
+$receiver = new Sensorario\MarsRover\Receiver\Receiver(
+    new Sensorario\MarsRover\Receiver\Predictor(),
+    new Sensorario\MarsRover\Rover(
+        Sensorario\MarsRover\Point::origin()
+    ),
+    new Sensorario\MarsRover\Grid(7,7)
+);
 
 (new Sensorario\MarsRover\Resumer($receiver))->println('partenza');
 
