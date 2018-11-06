@@ -44,20 +44,28 @@ class Receiver
         $this->obstacles = $obstacles;
     }
 
+    private function actions()
+    {
+        return [
+            'l' => function () {
+                $this->rover->turnLeft();
+            },
+            'r' => function () {
+                $this->rover->turnRight();
+            },
+            'b' => function () {
+                $this->move('b');
+            },
+            'f' => function () {
+                $this->move('f');
+            },
+        ];
+    }
+
     public function read(string $instruction) : void
     {
         for ($i = 0; $this->obstacleDetected === false && $i < strlen($instruction); $i++) {
-            if ($instruction[$i] === 'l') {
-                $this->rover->turnLeft();
-            }
-
-            if ($instruction[$i] === 'r') {
-                $this->rover->turnRight();
-            }
-
-            if ($instruction[$i] === 'f' || $instruction[$i] === 'b') {
-                $this->move($instruction[$i]);
-            }
+            $this->actions()[$instruction[$i]]();
 
             $this->predictor->setRover($this->rover);
 
