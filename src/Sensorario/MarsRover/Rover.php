@@ -71,6 +71,7 @@ class Rover
 
     public function orientation()
     {
+
         return $this->currentDirection % 2
             ? 'horizontal'
             : 'vertical';

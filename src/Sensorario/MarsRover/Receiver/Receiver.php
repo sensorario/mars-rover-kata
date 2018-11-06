@@ -46,6 +46,7 @@ class Receiver
 
     private function actions()
     {
+
         return [
             'l' => function () {
                 $this->rover->turnLeft();

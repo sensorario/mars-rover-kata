@@ -26,6 +26,7 @@ class Predictor
         $y = $this->currentPosition[1];
 
         if ($instruction === 'f') {
+
             return $this->getForwardPosition($x, $y);
         }
 
@@ -37,6 +38,7 @@ class Predictor
         if ($this->currentDirection === 'N') { return [$x, ++$y]; }
         if ($this->currentDirection === 'E') { return [++$x, $y]; }
         if ($this->currentDirection === 'O') { return [--$x, $y]; }
+
         return [$x, --$y];
     }
 
@@ -45,6 +47,7 @@ class Predictor
         if ($this->currentDirection === 'N') { return [$x, --$y]; }
         if ($this->currentDirection === 'E') { return [--$x, $y]; }
         if ($this->currentDirection === 'O') { return [++$x, $y]; }
+
         return [$x, ++$y];
     }
 }
