@@ -29,9 +29,7 @@ class Predictor
             return $this->getForwardPosition($x, $y);
         }
 
-        if ($instruction === 'b') {
-            return $this->getBackwardPosition($x, $y);
-        }
+        return $this->getBackwardPosition($x, $y);
     }
 
     private function getForwardPosition($x, $y)
@@ -39,7 +37,7 @@ class Predictor
         if ($this->currentDirection === 'N') { return [$x, ++$y]; }
         if ($this->currentDirection === 'E') { return [++$x, $y]; }
         if ($this->currentDirection === 'O') { return [--$x, $y]; }
-        if ($this->currentDirection === 'S') { return [$x, --$y]; }
+        return [$x, --$y];
     }
 
     public function getBackwardPosition($x, $y)
@@ -47,6 +45,6 @@ class Predictor
         if ($this->currentDirection === 'N') { return [$x, --$y]; }
         if ($this->currentDirection === 'E') { return [--$x, $y]; }
         if ($this->currentDirection === 'O') { return [++$x, $y]; }
-        if ($this->currentDirection === 'S') { return [$x, ++$y]; }
+        return [$x, ++$y];
     }
 }
