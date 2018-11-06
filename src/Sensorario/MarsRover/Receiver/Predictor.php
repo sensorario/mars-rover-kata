@@ -26,17 +26,27 @@ class Predictor
         $y = $this->currentPosition[1];
 
         if ($instruction === 'f') {
-            if ($this->currentDirection === 'N') { return [$x, ++$y]; }
-            if ($this->currentDirection === 'E') { return [++$x, $y]; }
-            if ($this->currentDirection === 'O') { return [--$x, $y]; }
-            if ($this->currentDirection === 'S') { return [$x, --$y]; }
+            return $this->getForwardPosition($x, $y);
         }
 
         if ($instruction === 'b') {
-            if ($this->currentDirection === 'N') { return [$x, --$y]; }
-            if ($this->currentDirection === 'E') { return [--$x, $y]; }
-            if ($this->currentDirection === 'O') { return [++$x, $y]; }
-            if ($this->currentDirection === 'S') { return [$x, ++$y]; }
+            return $this->getBackwardPosition($x, $y);
         }
+    }
+
+    private function getForwardPosition($x, $y)
+    {
+        if ($this->currentDirection === 'N') { return [$x, ++$y]; }
+        if ($this->currentDirection === 'E') { return [++$x, $y]; }
+        if ($this->currentDirection === 'O') { return [--$x, $y]; }
+        if ($this->currentDirection === 'S') { return [$x, --$y]; }
+    }
+
+    public function getBackwardPosition($x, $y)
+    {
+        if ($this->currentDirection === 'N') { return [$x, --$y]; }
+        if ($this->currentDirection === 'E') { return [--$x, $y]; }
+        if ($this->currentDirection === 'O') { return [++$x, $y]; }
+        if ($this->currentDirection === 'S') { return [$x, ++$y]; }
     }
 }
