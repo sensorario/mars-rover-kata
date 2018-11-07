@@ -1,8 +1,8 @@
 <?php
 
-namespace Sensorario\MarsRover\Receiver;
+namespace Sensorario\MarsRover\Rover;
 
-use Sensorario\MarsRover\Rover;
+use Sensorario\MarsRover\Rover\Rover;
 
 class Predictor
 {

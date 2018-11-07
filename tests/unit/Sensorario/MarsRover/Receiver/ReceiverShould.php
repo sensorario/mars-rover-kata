@@ -12,7 +12,7 @@ class ReceiverShould extends TestCase
     public function testConvertSingleInstructions($instruction, $movement)
     {
         $this->rover = $this
-            ->getMockBuilder('Sensorario\MarsRover\Rover')
+            ->getMockBuilder('Sensorario\MarsRover\Rover\Rover')
             ->disableOriginalConstructor()
             ->getMock();
         $this->rover->expects($this->any())
@@ -29,7 +29,7 @@ class ReceiverShould extends TestCase
             ->willReturn(true);
 
         $this->predictor = $this
-            ->getMockBuilder('Sensorario\MarsRover\Receiver\Predictor')
+            ->getMockBuilder('Sensorario\MarsRover\Rover\Predictor')
             ->disableOriginalConstructor()
             ->getMock();
         $this->predictor->expects($this->exactly(2))

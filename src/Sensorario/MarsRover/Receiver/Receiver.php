@@ -5,7 +5,8 @@ namespace Sensorario\MarsRover\Receiver;
 use PHPUnit\Framework\TestCase;
 use Sensorario\MarsRover\Grid;
 use Sensorario\MarsRover\Objects\Point;
-use Sensorario\MarsRover\Rover;
+use Sensorario\MarsRover\Rover\Predictor;
+use Sensorario\MarsRover\Rover\Rover;
 
 class Receiver
 {
@@ -44,29 +45,37 @@ class Receiver
         $this->obstacles = $obstacles;
     }
 
-    private function actions()
+    private function actions($command)
     {
 
         return [
+
             'l' => function () {
                 $this->rover->turnLeft();
             },
+
             'r' => function () {
                 $this->rover->turnRight();
             },
+
             'b' => function () {
-                $this->move('b');
+                $point = $this->move('b');
+                $this->rover->forcePosition($point);
             },
+
             'f' => function () {
-                $this->move('f');
+                $point = $this->move('f');
+                $this->rover->forcePosition($point);
             },
-        ];
+
+        ][$command];
     }
 
     public function read(string $instruction) : void
     {
         for ($i = 0; $this->obstacleDetected === false && $i < strlen($instruction); $i++) {
-            $this->actions()[$instruction[$i]]();
+            $command = $instruction[$i];
+            $this->actions($command)();
 
             $this->predictor->setRover($this->rover);
 
@@ -76,7 +85,7 @@ class Receiver
         }
     }
 
-    public function move(string $instruction) : void
+    public function move(string $instruction) : Point
     {
         list($x, $y) = $this->predictor->forecast($instruction);
 
@@ -89,9 +98,7 @@ class Receiver
             $this->obstacleDetected = true;
         }
 
-        $this->rover->forcePosition(
-            Point::from($x, $y)
-        );
+        return Point::from($x, $y);
     }
 
     public function rover()

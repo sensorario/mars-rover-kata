@@ -1,10 +1,10 @@
 <?php
 
-namespace Sensorario\MarsRover\Receiver;
+namespace Sensorario\MarsRover\Rover;
 
 use PHPUnit\Framework\TestCase;
 use Sensorario\MarsRover\Point;
-use Sensorario\MarsRover\Rover;
+use Sensorario\MarsRover\Rover\Rover;
 
 class PredictorShould extends TestCase
 {
@@ -17,7 +17,7 @@ class PredictorShould extends TestCase
     )
     {
         $this->rover = $this
-            ->getMockBuilder('Sensorario\MarsRover\Rover')
+            ->getMockBuilder('Sensorario\MarsRover\Rover\Rover')
             ->disableOriginalConstructor()
             ->getMock();
         $this->rover->expects($this->once())

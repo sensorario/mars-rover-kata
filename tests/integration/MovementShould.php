@@ -7,8 +7,8 @@ class MovementShould extends PHPUnit\Framework\TestCase
     public function setUp()
     {
         $this->startigPoint = Point::origin();
-        $this->rover = new Sensorario\MarsRover\Rover($this->startigPoint);
-        $this->predictor = new Sensorario\MarsRover\Receiver\Predictor();
+        $this->rover = new Sensorario\MarsRover\Rover\Rover($this->startigPoint);
+        $this->predictor = new Sensorario\MarsRover\Rover\Predictor();
     }
 
     public function testReachValidPosition()

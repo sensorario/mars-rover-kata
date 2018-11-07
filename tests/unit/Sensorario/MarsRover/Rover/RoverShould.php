@@ -1,10 +1,10 @@
 <?php
 
-namespace Sensorario\MarsRover;
+namespace Sensorario\MarsRover\Rover;
 
 use PHPUnit\Framework\TestCase;
 use Sensorario\MarsRover\Objects\Point;
-use Sensorario\MarsRover\Rover;
+use Sensorario\MarsRover\Rover\Rover;
 
 class RoverShould extends TestCase
 {
